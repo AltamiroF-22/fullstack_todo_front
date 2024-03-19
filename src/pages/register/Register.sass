@@ -1,0 +1,81 @@
+@use '../../sass/_variables'
+
+.container
+    width: 100%
+    min-height: 100vh
+    display: grid
+    place-content: center
+    position: relative
+    background-color: variables.$ligh-white
+
+    .title
+        position: absolute
+        top: 30px
+        left: 50px
+        font-size: 2.5rem
+        color: variables.$gray-color
+        font-weight: normal
+        font-family: variables.$barcode-font
+    
+    .form-father
+        background-color: variables.$white-color
+        padding: 2rem
+        width: 90vw
+        display: flex
+        flex-direction: column
+        align-content: center
+        justify-content: space-around
+        max-width: 600px
+
+        h1
+            padding: 15px 0 30px 0
+            border-bottom: solid 1px variables.$gray-color
+            margin-bottom: 50px
+            text-align: center
+            font-family: variables.$clash-font
+
+        
+        .Form-son
+            gap: 10px
+            display: flex
+            flex-direction: column
+
+
+            .input-label
+                label
+                    font-size: .8rem
+                input
+                    width: 100%
+                    background-color: transparent
+                    border: solid 1px variables.$dark-gray
+                    padding: 5px 10px
+
+                    &:focus
+                        outline: none
+            button
+                width: 100%
+                border: none
+                outline: none
+                background: variables.$green-color
+                color: variables.$white-color
+                padding: 9px
+                font-family: variables.$clash-font
+                font-weight: 600
+                cursor: pointer
+                transition: .2s
+                margin-top: 20px
+            &:hover
+                opacity: .95
+    p
+        text-align: center
+        padding:15px 0 0 0 
+        border-bottom: solid 1px variables.$green-color
+        font-size: .9rem
+
+            
+        .p
+            text-decoration: none
+            color: variables.$green-color
+
+.error-text
+    font-size: .8rem

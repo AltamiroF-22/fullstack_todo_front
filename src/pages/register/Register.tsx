@@ -18,7 +18,7 @@ const Register: React.FC = () => {
     const password = passwordRef.current?.value ?? "";
 
     // Remove mensagens de erro antigas
-    for (const errorMsg of formRef.current.querySelectorAll(".erro-text")) {
+    for (const errorMsg of formRef.current.querySelectorAll(".error-text")) {
       errorMsg.remove();
     }
 
@@ -71,25 +71,25 @@ const Register: React.FC = () => {
     const div = document.createElement("div");
     div.innerHTML = message;
     div.style.color = "red";
-    div.classList.add("erro-text");
+    div.classList.add("error-text");
     input.current?.insertAdjacentElement("afterend", div);
   };
 
   return (
     <main className="container">
-      <h1>TO DO LIST</h1>
+      <h1 className="title">TODOLIST</h1>
       <section className="form-father">
         <h1>Register</h1>
         <form className="Form-son" onSubmit={handleFormSubmit} ref={formRef}>
-          <div>
+          <div className="input-label">
             <label htmlFor="name">Username:</label>
             <input type="text" name="name" id="name" ref={nameRef} />
           </div>
-          <div>
+          <div className="input-label">
             <label htmlFor="email">Email:</label>
             <input type="email" name="email" id="email" ref={emailRef} />
           </div>
-          <div>
+          <div className="input-label">
             <label htmlFor="password">Password:</label>
             <input
               type="password"
@@ -100,7 +100,9 @@ const Register: React.FC = () => {
           </div>
           <button type="submit">Register</button>
         </form>
-        <Link to="/login">Already have an account?</Link>
+        <p>
+          <Link className="p" to="/login">Already have an account?</Link>
+        </p>
       </section>
     </main>
   );
