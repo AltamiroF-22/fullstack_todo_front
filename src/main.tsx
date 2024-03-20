@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./sass/main.sass";
 import AuthProvider from "./context/AuthProvider.tsx";
-import ProtectedRoute from "./context/ProtectedRoute.tsx";
+// import ProtectedRoute from "./context/ProtectedRoute.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -18,13 +18,17 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      // {
+      //   path: "/",
+      //   element: (
+      //     <ProtectedRoute>
+      //       <HomeRoute />
+      //     </ProtectedRoute>
+      //   ),
+      // },
       {
         path: "/",
-        element: (
-          <ProtectedRoute>
-            <HomeRoute />
-          </ProtectedRoute>
-        ),
+        element: <HomeRoute />,
       },
       { path: "/login", element: <LoginRoute /> },
       { path: "/register", element: <RegisterRoute /> },
