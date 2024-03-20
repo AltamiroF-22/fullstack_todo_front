@@ -1,0 +1,36 @@
+@use '../../sass/_variables'
+
+
+.nav
+    background: transparent
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 1.5rem 1.6rem
+    border-bottom: solid 1px variables.$gray-color
+
+    .title
+        cursor: pointer
+        font-size: 2.5rem
+        color: variables.$gray-color
+        font-weight: normal
+        letter-spacing: 2px
+        font-family: variables.$barcode-font
+        
+    .icons
+        display: flex
+        justify-content: space-between
+        width: 50%    
+            
+        .button-li
+            list-style: none
+      
+            .img
+                transition: .2s
+                cursor: pointer
+                width: 1.5rem
+                height: 1.5rem
+                &:hover
+                    transform: scale(1.1)
+                
+            

@@ -38,8 +38,8 @@ const Login: React.FC = () => {
         createError(emailRef, "Email is required!");
         keep = false;
       }
-      if (password.trim().length < 10) {
-        createError(passwordRef, "Password must have at least 10 characters!");
+      if (password.trim().length < 8) {
+        createError(passwordRef, "Password must have at least 8 characters!");
         keep = false;
       }
 

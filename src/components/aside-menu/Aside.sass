@@ -1,0 +1,84 @@
+@use '../../sass/_variables'
+
+
+.aside
+    position: absolute
+    display: flex
+    flex-direction: column
+    gap: 25px
+    width: 400px
+    min-height: 100vh
+    padding: 15px
+    z-index: 2
+    top: 0
+    right: 0
+    background-color: variables.$dark-gray
+    color: variables.$ligh-white
+    box-shadow: -3px 4px 10px  rgba(0, 0, 0, 0.202)
+
+    .top
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+        .close-aside
+            border: none
+            cursor: pointer
+            width: 30px
+            height: 30px
+            outline: none
+            color: transparent
+            background-color: transparent
+            background-image: url('../../assets/svg/Xmark.svg')
+            background-repeat: no-repeat
+            background-position: center
+            background-size: 15px
+
+    .file-upload-label
+      display: grid
+      place-content: center
+      border: dashed 1px 
+      border-radius: 15px
+      cursor: pointer
+      height: 30vh
+      width: 100%
+      transition: .1s
+      &:hover
+        color: variables.$green-color-white
+    
+    .file-input 
+      display: none
+    
+    .friends-sec
+        h2
+            padding: 12px 0
+            font-weight: 300
+        .friends
+            box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.807), inset 0 -10px 10px -10px rgba(0, 0, 0, 0.782)
+            padding: 10px 0
+            border-radius: 15px
+            border: dashed 1px
+            overflow: hidden
+            height: 35vh
+            max-height: 230px
+            overflow-y: auto
+    .no-f-msg
+        height: 100%
+        display: grid
+        place-content: center
+        font-size: 13px
+            
+    
+
+.friends::-webkit-scrollbar 
+    width: 10px
+
+.friends::-webkit-scrollbar-thumb 
+    background-color: variables.$green-color-white
+    border-radius: 10px
+
+
+
+.friends::-webkit-scrollbar-track 
+    background-color: transparent
+
