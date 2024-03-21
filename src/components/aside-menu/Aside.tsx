@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import DefaultImage from "../../assets/images/default_img.webp";
 import PhotoName from "../photo-name/PhotoName";
 import "./Aside.sass";
@@ -20,6 +21,9 @@ interface UserFriendsProps {
   email: string;
 }
 
+interface ButtonProps {
+  CloseBtn: () => void;
+}
 const initialUserData: UserDataProps = {
   _id: "",
   name: "",
@@ -29,7 +33,7 @@ const initialUserData: UserDataProps = {
   profilePicture: DefaultImage,
 };
 
-const Aside = () => {
+const Aside = ({ CloseBtn }: ButtonProps) => {
   const [userData, setUserData] = useState<UserDataProps>(initialUserData);
   const [userFriends, setUserFriends] = useState<UserFriendsProps[]>([]);
   const [userId, setUserId] = useState<string>("");
@@ -87,17 +91,26 @@ const Aside = () => {
   return (
     <aside className="aside">
       <section className="top">
-        {userData.profilePicture ? (
-          //   <PhotoName name={userData.name} image={userData.profilePicture} />
-          <PhotoName name={userData.name} image={DefaultImage} />
+        {/* {userData.profilePicture ? (
+          <PhotoName name={userData.name} image={userData.profilePicture} />
         ) : (
           <PhotoName name={userData.name} image={DefaultImage} />
-        )}
-        <button className="close-aside">close</button>
+        )} */}
+        <PhotoName
+          name={userData.name}
+          email={userData.email}
+          image={
+            DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)].image
+          }
+        />
+        <button className="close-aside" onClick={CloseBtn}>
+          close
+        </button>
       </section>
 
       <section className="file-upload">
-        <label  htmlFor="file-input" className="file-upload-label">
+        <label className="file-upload-label">
+          {/*htmlFor="file-input"*/}
           New Profile Picture
         </label>
         <input id="file-input" className="file-input" type="file" />
@@ -110,8 +123,11 @@ const Aside = () => {
             userFriends.map((friend) => (
               <PhotoName
                 key={friend._id}
-                // image={friend.profilePicture}
-                image={DefaultImage}
+                // image={friend.profilePicture ? friend.profilePicture : DefaultImage}
+                image={
+                  DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
+                    .image
+                }
                 name={friend.name}
                 email={friend.email}
               />

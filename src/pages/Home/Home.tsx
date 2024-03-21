@@ -1,12 +1,11 @@
 import Navbar from "../../components/navbar/Navbar";
+import UserTasks from "../../components/UserTasks/UserTasks";
 import "./Homer.sass";
 const Home = () => {
   return (
     <>
       <Navbar />
-      <main>
-        <h1>Home</h1>
-      </main>
+      <UserTasks />
     </>
   );
 };

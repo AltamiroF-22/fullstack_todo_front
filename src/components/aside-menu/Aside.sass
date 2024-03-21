@@ -39,12 +39,49 @@
       place-content: center
       border: dashed 1px 
       border-radius: 15px
-      cursor: pointer
       height: 30vh
       width: 100%
       transition: .1s
+      position: relative
+      cursor: not-allowed
+      //cursor: pointer
+      &::before
+        position: absolute
+        content:''
+        width: 20px
+        height: 20px
+        left: 50%
+        top: 30px
+        transition: .2s
+        opacity: 0
+        pointer-events: none
+        transform: rotate(45deg) translateX(-50%)
+        background: black
+        
+      &::after
+            position: absolute
+            pointer-events: none
+            top: 0
+            transition: .2s
+            width: 250px
+            text-align: center
+            left: 50%
+            transform: translateX(-50%)
+            color: variables.$ligh-white
+            font-size: 12px
+            padding: 4px 20px
+            background-color: black
+            content: "the images go to the server but don't come back"
+            opacity: 0
+
       &:hover
         color: variables.$green-color-white
+        &::after
+            top: -30px
+            opacity: 1
+        &::before
+            top: 2px
+            opacity: 1
     
     .file-input 
       display: none
@@ -74,7 +111,8 @@
     width: 10px
 
 .friends::-webkit-scrollbar-thumb 
-    background-color: variables.$green-color-white
+    // background-color: variables.$green-color-white
+    background-color: #3B3B3B
     border-radius: 10px
 
 

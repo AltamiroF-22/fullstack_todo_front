@@ -1,0 +1,74 @@
+@use '../../sass/_variables'
+
+.task
+    display: flex
+    border-bottom: 1px dashed variables.$dark-gray 
+    justify-content: space-between
+    width: 100%
+    margin: 0 auto
+    gap: 10px
+
+    .p-father   
+        display: grid
+        place-content: center
+        line-height: 20px
+        font-size: .85rem
+        text-align: start
+        margin: 5px 0
+        min-width: 150px
+        width: 150px
+        height: 80px
+        flex-grow: 1
+        p
+            overflow-y: auto
+
+            
+
+    .p-father:nth-child(2)     
+        width: 210px
+        min-width: 300px
+
+    .complete
+        text-decoration: line-through
+   
+
+    .buttons-actions
+        display: flex
+        justify-content: center
+        align-items: center
+        gap: 15px
+        .task-btn
+            width: 100px
+            height: 57px
+            background: transparent
+            font-weight: bold
+            padding: 10px 15px
+            border: solid 1px variables.$dark-gray
+            border-radius:7px
+            cursor: pointer
+            transition: .1s
+
+        .delet
+            &:hover
+                color: variables.$red-pink
+                border-color:  variables.$red-pink
+
+        .edit
+            &:hover
+                color: variables.$white-color
+                background-color: variables.$dark-gray
+
+
+p::-webkit-scrollbar 
+    width: 5px
+    background: #e9e9e9
+
+p::-webkit-scrollbar-thumb 
+    // background-color: variables.$green-color-white
+    background-color: #3B3B3B
+
+
+
+p::-webkit-scrollbar-track 
+    background-color: transparent
+

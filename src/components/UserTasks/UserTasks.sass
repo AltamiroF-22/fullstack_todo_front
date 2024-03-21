@@ -1,0 +1,82 @@
+@use '../../sass/_variables'
+
+
+.user-tasks
+    width: 90%
+    height: 71vh
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    border-radius: 20px 20px 0 0
+    overflow-y: auto
+    padding: 0  2rem
+    background-color: variables.$white-color
+
+    .user-nav-top
+        display: flex
+        justify-content: space-between
+        background-color: variables.$white-color
+        padding: 30px 5px
+
+        .userPhoto > img
+            object-fit: cover
+            width: 2.1rem
+            height: 2.1rem
+            border-radius: 50%
+
+        h1
+            color: variables.$gray-color
+
+        .new-task
+            background: transparent
+            border: none
+            cursor: pointer
+            height: 30px
+            font-size: 13px
+            transition: .2s
+            border-bottom: solid 1px transparent
+
+            &:hover
+                border-bottom: solid 1px variables.$gray-color    
+        
+    .user-nav-bottom
+        width: calc( 100% - 225px  )
+
+        ul
+            text-align: center
+            display: flex
+            justify-content: space-between
+            gap: 10px
+            margin-left: 20px
+            padding: 10px 0
+
+            li             
+                list-style: none
+                flex-grow: 1
+                min-width: 150px
+
+            li:nth-child(2)
+                min-width: 310px
+
+.user-header
+    position: sticky
+    top: 0
+    background-color: variables.$white-color
+    border-bottom: solid 1px variables.$dark-gray
+    // box-shadow: 0rem 1rem .4rem -.5rem #00000018
+
+    
+
+.user-tasks::-webkit-scrollbar 
+    width: 10px
+
+.user-tasks::-webkit-scrollbar-thumb 
+    // background-color: variables.$green-color-white
+    background-color: #e8e8e8
+    border-radius: 20px
+
+
+
+.user-tasks::-webkit-scrollbar-track 
+    background-color: transparent

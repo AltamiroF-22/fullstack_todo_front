@@ -12,9 +12,13 @@ const Navbar = () => {
   const [searchMenu, setSearchMenu] = useState<boolean>(false);
 
   const handleShowAside = () => {
-    setAsideMenu(!asideMenu);
+    setAsideMenu(true);
   };
-  
+
+  const handleCloseBtn = () => {
+    setAsideMenu(false);
+  };
+
   const handleShowSearch = () => {
     setSearchMenu(!searchMenu);
   };
@@ -42,7 +46,7 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
-      {asideMenu && <Aside />}
+      {asideMenu && <Aside CloseBtn={handleCloseBtn} />}
     </>
   );
 };
