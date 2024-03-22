@@ -57,27 +57,30 @@ const Login: React.FC = () => {
         password,
       });
 
-      // Verifique se a resposta contém o token
       if (response.data && response.data.token) {
         const accessToken = response.data.token;
 
-        // Armazene o token de acesso localmente, por exemplo, em localStorage
         localStorage.setItem("jwtToken", accessToken);
 
-        // Navegue para a página inicial ou faça outras ações necessárias
         navigate("/");
       } else {
         console.error(
           "Token de autorização não encontrado na resposta do servidor."
         );
-        // Lide com o caso em que o token não está presente na resposta
-        // Por exemplo, mostre uma mensagem de erro ao usuário
+
       }
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Erro ao fazer login:", error);
-      if (error.response && error.response.status === 401) {
+      if (error.response) {
         const errorMessage = (error.response.data as ErrorResponse).message;
-        createError(emailRef, errorMessage);
+        const fieldRef = error.response.data.field;
+        createError(
+          fieldRef === "password" ? passwordRef : emailRef,
+          errorMessage
+        );
+      } else {
+        console.error("Erro não possui propriedade 'response'.");
       }
     }
   };

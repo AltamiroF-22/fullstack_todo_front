@@ -1,0 +1,52 @@
+@use '../../sass/_variables'
+@use '../../sass/_mixins'
+
+
+.background-bulr
+    position: absolute
+    z-index: 20
+    top: 0
+    left: 0
+    display: grid
+    place-content: center
+    width: 100%
+    height: 100vh
+    @include mixins.backgroundBlur
+    
+    .pop-up
+        width: 100%
+        max-width: 35.3rem
+        min-width: 300px
+        background-color: variables.$white-color
+        padding: 2rem
+        display: flex
+        flex-direction: column
+        border-radius: 1rem
+        gap: 3rem
+
+        h1
+            color: variables.$dark-gray
+            font-weight: 400
+            text-align: center
+
+        .buttons
+            display: flex
+            justify-content: center
+            gap: 1.4rem
+
+            button
+                font-size: 1rem
+                padding: 0.43rem 3rem
+                border-radius: 1rem
+                cursor: pointer
+                background-color: variables.$red-pink
+                color: variables.$white-color
+                outline: none
+                border: none
+                transition: .2s
+                &:hover
+                    transform: scale(.97)
+                    opacity: .9
+                
+            .delete-btn
+                background-color: variables.$dark-gray

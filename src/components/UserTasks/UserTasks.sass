@@ -3,7 +3,7 @@
 
 .user-tasks
     width: 90%
-    height: 71vh
+    height: 74vh
     position: absolute
     bottom: 0
     left: 50%
@@ -41,9 +41,17 @@
                 border-bottom: solid 1px variables.$gray-color    
         
     .user-nav-bottom
-        width: calc( 100% - 225px  )
+        top: 0
+        position: sticky
+        padding: 10px
+        background-color: variables.$white-color
+        // border-bottom: solid 1px variables.$dark-gray
+        border-bottom: solid 1px variables.$gray-color
+        // box-shadow: 0rem 1rem .5rem -.5rem rgba(0, 0, 0, 0.100)
+
 
         ul
+            width: calc( 100% - 225px  )
             text-align: center
             display: flex
             justify-content: space-between
@@ -58,13 +66,6 @@
 
             li:nth-child(2)
                 min-width: 310px
-
-.user-header
-    position: sticky
-    top: 0
-    background-color: variables.$white-color
-    border-bottom: solid 1px variables.$dark-gray
-    // box-shadow: 0rem 1rem .4rem -.5rem #00000018
 
     
 
