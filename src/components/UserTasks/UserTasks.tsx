@@ -1,6 +1,7 @@
 import "./UserTasks.sass";
 import Task from "../task/Task";
 import DeletePopUp from "../delete- pop-up/DeletePopUp";
+import EditingAddTasks from "../editing_add-tasks/Editing_add-tasks";
 import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
@@ -17,13 +18,14 @@ const UserTasks = () => {
   const [userId, setUserId] = useState<string>("");
   const [userTasks, setUserTasks] = useState<TasksProps[]>([]);
   const [showDeletePopUp, setShowDeletePopUp] = useState<boolean>(false);
+  const [showEditiongPopUp, setShowEditiongPopUp] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string | null>(null);
 
   useEffect(() => {
     loadUserTasks();
     loadUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+  }, [userId, userTasks]);
   const loadUserData = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -65,9 +67,7 @@ const UserTasks = () => {
     }
   };
 
-  const handleEditBtn = (id: string) => {
-    alert(id);
-  };
+  // delete task
   const handleDeleteBtn = (id: string) => {
     setShowDeletePopUp(true);
     setTaskId(id);
@@ -102,20 +102,66 @@ const UserTasks = () => {
     }
   };
 
+  /// editing task
+  const handleEditBtn = (id: string) => {
+    setShowEditiongPopUp(true);
+    setTaskId(id);
+  };
+
+  const handleCloseEditingPopUp = () => {
+    setShowEditiongPopUp(false);
+  };
+
+  const handleFormSubmition = async (formData: {
+    title: string;
+    description: string;
+    visibility: string;
+    status: string;
+  }) => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+
+      if (!token) {
+        console.error("Token not found in localStorage");
+        return;
+      }
+      const response = await api.patch(`/single-task/${taskId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response);
+      setShowEditiongPopUp(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       {/* PopUps */}
+
       {showDeletePopUp && (
         <DeletePopUp
           cancelBtn={handleCancelBtn}
           deleteBtn={handleComfirmDeletBtn}
         />
       )}
+
+      {showEditiongPopUp && (
+        <EditingAddTasks
+          method="PACTH"
+          popUpTitle="Editing task"
+          onSubmit={handleFormSubmition}
+          closePopUp={handleCloseEditingPopUp}
+        />
+      )}
+
       {/* End of PopUps */}
       <main className="user-tasks">
         <nav className="user-nav-top">
           <div className="userPhoto">
-            <img src={DefaultGIFs[0].image} alt="user photo" />
+            <img src={DefaultGIFs[14].image} alt="user photo" />
           </div>
           <h1>Tasks</h1>
           <button className="new-task">+ New Task</button>

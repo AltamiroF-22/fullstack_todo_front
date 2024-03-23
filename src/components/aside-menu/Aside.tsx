@@ -100,7 +100,7 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
           name={userData.name}
           email={userData.email}
           image={
-            DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)].image
+            DefaultGIFs[14].image
           }
         />
         <button className="close-aside" onClick={CloseBtn}>
