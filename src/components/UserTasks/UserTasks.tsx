@@ -20,6 +20,8 @@ const UserTasks = () => {
   const [showDeletePopUp, setShowDeletePopUp] = useState<boolean>(false);
   const [showEditiongPopUp, setShowEditiongPopUp] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string | null>(null);
+  const [defaultTitle, setDefaultTitle] = useState<string>("");
+  const [defaultDescription, setDefaultDescription] = useState<string>("");
 
   useEffect(() => {
     loadUserTasks();
@@ -103,9 +105,11 @@ const UserTasks = () => {
   };
 
   /// editing task
-  const handleEditBtn = (id: string) => {
+  const handleEditBtn = (value: TasksProps) => {
     setShowEditiongPopUp(true);
-    setTaskId(id);
+    setTaskId(value._id);
+    setDefaultTitle(value.title);
+    setDefaultDescription(value.description);
   };
 
   const handleCloseEditingPopUp = () => {
@@ -152,6 +156,8 @@ const UserTasks = () => {
         <EditingAddTasks
           method="PACTH"
           popUpTitle="Editing task"
+          defaultTitle={defaultTitle}
+          defaultDescription={defaultDescription}
           onSubmit={handleFormSubmition}
           closePopUp={handleCloseEditingPopUp}
         />
@@ -186,7 +192,7 @@ const UserTasks = () => {
                 description={value.description}
                 status={value.status}
                 visibility={value.visibility}
-                editBtn={() => handleEditBtn(value._id)}
+                editBtn={() => handleEditBtn(value)}
                 deleteBtn={() => handleDeleteBtn(value._id)}
               />
             ))

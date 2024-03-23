@@ -6,16 +6,20 @@ interface EditingAddTasksProps {
   popUpTitle: string;
   closePopUp: () => void;
   onSubmit: (formData: {
-    title: string;
-    description: string;
-    visibility: string;
-    status: string;
-  }) => void;
+      title: string;
+      description: string;
+      visibility: string;
+      status: string;
+    }) => void;
+    defaultTitle?: string;
+    defaultDescription?: string;
 }
 
 const EditingAddTasks = ({
   method,
   popUpTitle,
+  defaultTitle,
+  defaultDescription,
   closePopUp,
   onSubmit,
 }: EditingAddTasksProps) => {
@@ -35,7 +39,6 @@ const EditingAddTasks = ({
     setStatus(event.target.value);
   };
 
-  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -70,11 +73,15 @@ const EditingAddTasks = ({
         </nav>
         <form method={method} onSubmit={handleSubmit}>
           <div className="form-up">
-            <small className="erros">
-              {erroMsg}
-            </small>
-            <input ref={titleRef} type="text" placeholder="title:" />
+            <small className="erros">{erroMsg}</small>
             <input
+              ref={titleRef}
+              defaultValue={defaultTitle}
+              type="text"
+              placeholder="title:"
+            />
+            <input
+              defaultValue={defaultDescription}
               ref={descriptionRef}
               type="text"
               placeholder="description:"
@@ -85,7 +92,6 @@ const EditingAddTasks = ({
               <p>Visibility:</p>
 
               <input
-                defaultChecked
                 type="radio"
                 name="visibility"
                 id="public"
@@ -110,7 +116,6 @@ const EditingAddTasks = ({
               <p>Status:</p>
 
               <input
-                defaultChecked
                 type="radio"
                 name="status"
                 id="not_started"
@@ -139,8 +144,8 @@ const EditingAddTasks = ({
               <label htmlFor="completed">Completed</label>
             </div>
 
-            <p>title: {}</p>
-            <p>description: {}</p>
+            <p>title: {defaultTitle}</p>
+            <p>description: {defaultDescription}</p>
           </div>
           <button type="submit">Submit</button>
         </form>
