@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Link } from "react-router-dom";
-// import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
+import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import DefaultImage from "../../assets/images/default_img.webp";
 import PhotoName from "../photo-name/PhotoName";
 import "./Aside.sass";
@@ -92,18 +92,16 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
   return (
     <aside className="aside">
       <section className="top">
-        {userData.profilePicture ? (
+        {/* {userData.profilePicture ? (
           <PhotoName name={userData.name} image={userData.profilePicture} />
         ) : (
           <PhotoName name={userData.name} image={DefaultImage} />
-        )}
-        {/* <PhotoName
+        )} */}
+        <PhotoName
           name={userData.name}
           email={userData.email}
-          image={
-            DefaultGIFs[14].image
-          }
-        /> */}
+          image={DefaultGIFs[14].image}
+        />
         <button className="close-aside" onClick={CloseBtn}>
           close
         </button>
@@ -124,11 +122,11 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
             userFriends.map((friend) => (
               <PhotoName
                 key={friend._id}
-                image={friend.profilePicture ? friend.profilePicture : DefaultImage}
-                // image={
-                //   DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
-                //     .image
-                // }
+                // image={friend.profilePicture ? friend.profilePicture : DefaultImage}
+                image={
+                  DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
+                    .image
+                }
                 name={friend.name}
                 email={friend.email}
               />
@@ -138,7 +136,12 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
           )}
         </div>
         <footer>
-         <small> &copy; junior.rx22</small> <span><Link to="https://www.instagram.com/junior.rx22/" target="blank">instagram</Link></span>
+          <small> &copy; junior.rx22</small>{" "}
+          <span>
+            <Link to="https://www.instagram.com/junior.rx22/" target="blank">
+              instagram
+            </Link>
+          </span>
         </footer>
       </section>
     </aside>
