@@ -18,38 +18,40 @@
         max-width: 35.3rem
         min-width: 300px
         background-color: variables.$white-color
-        padding: 2rem
+        padding: 1.4rem 2rem
         display: flex
         flex-direction: column
         border-radius: 1rem
         gap: 3rem
 
         h1
-            font-size: 1.1rem
+            font-size: 1.2rem
             color: variables.$dark-gray
             font-weight: 600
-            font-family: variables.$clash-font
             text-align: center
-            letter-spacing: 1px
+            // letter-spacing: 1px
 
         .buttons
             display: flex
             justify-content: center
-            gap: 1.4rem
+            gap: 1rem
 
             button
                 font-size: .9rem
                 padding: 0.43rem 3rem
-                border-radius: 1rem
+                border-radius: 10rem
                 cursor: pointer
-                background-color: variables.$red-pink
-                color: variables.$white-color
+                color: variables.$dark-gray
+                border: solid 1px variables.$dark-gray
+                background-color: transparent
                 outline: none
-                border: none
                 transition: .2s
                 &:hover
-                    transform: scale(.97)
-                    opacity: .9
-                
+                    background-color: variables.$dark-gray
+                    color: variables.$white-color
+            
             .delete-btn
-                background-color: variables.$dark-gray
+                &:hover
+                    color: variables.$red-pink
+                    background: transparent
+                    border-color: variables.$red-pink

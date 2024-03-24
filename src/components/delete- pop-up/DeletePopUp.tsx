@@ -7,7 +7,7 @@ interface DeletePopUpButtonsProps {
 
 const DeletePopUp = ({ deleteBtn, cancelBtn }: DeletePopUpButtonsProps) => {
   return (
-    <main className="background-bulr">
+    <main className="background-bulr" onClick={cancelBtn}>
       <section className="pop-up">
         <h1>Are you sure?</h1>
         <div className="buttons">

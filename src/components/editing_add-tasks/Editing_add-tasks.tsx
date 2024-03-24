@@ -61,13 +61,13 @@ const EditingAddTasks = ({
   };
 
   return (
-    <main className="background-blur">
+    <main className="background-blur" >
       <section className="pop-up">
         <nav>
           <ul>
             <li>{popUpTitle}</li>
             <li className="close-pop-up" onClick={closePopUp}>
-              close
+              x
             </li>
           </ul>
         </nav>
@@ -144,8 +144,8 @@ const EditingAddTasks = ({
               <label htmlFor="completed">Completed</label>
             </div>
 
-            <p>title: {defaultTitle}</p>
-            <p>description: {defaultDescription}</p>
+            <p>title: <span> {defaultTitle}</span></p>
+            <p>description: <span>{defaultDescription}</span></p>
           </div>
           <button type="submit">Submit</button>
         </form>

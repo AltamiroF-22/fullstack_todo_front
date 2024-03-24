@@ -27,19 +27,25 @@
                 display: flex
                 justify-content: space-between
                 align-items: center
-                margin-bottom: 4rem
 
                 li
                     list-style: none
 
                 .close-pop-up
                     cursor: pointer
-                    color: variables.$red-pink
-                    transition: .2s
-                    border-bottom: solid 1px transparent
+                    height: 1.3rem
+                    width: 1.3rem
+                    display: grid
+                    place-content: center
+                    font-size: .9rem
+                    border-radius: 50%
+                    transition: .2s 
+                    border: solid 1px variables.$dark-gray
                     
                     &:hover
                         border-color: variables.$red-pink
+                        color: variables.$red-pink
+                    
         
         form
 
@@ -76,6 +82,13 @@
                     label
                         margin-left: .4rem
 
+                p          
+                    overflow-y: auto
+                    max-height: 5rem
+                    font-weight: 600
+                    span
+                        font-weight: normal
+                        color: variables.$dark-gray
             button
                 width: 100%
                 border: none
