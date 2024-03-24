@@ -2,6 +2,7 @@ import "./UserTasks.sass";
 import Task from "../task/Task";
 import DeletePopUp from "../delete- pop-up/DeletePopUp";
 import EditingAddTasks from "../editing_add-tasks/Editing_add-tasks";
+import LoadingSvg from "../../assets/svg/loader.svg";
 import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
@@ -22,6 +23,7 @@ const UserTasks = () => {
   const [taskId, setTaskId] = useState<string | null>(null);
   const [defaultTitle, setDefaultTitle] = useState<string>("");
   const [defaultDescription, setDefaultDescription] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     loadUserTasks();
@@ -63,6 +65,7 @@ const UserTasks = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      setIsLoading(false);
       setUserTasks(response.data.tasks);
     } catch (error) {
       console.log(error);
@@ -181,23 +184,31 @@ const UserTasks = () => {
           </ul>
         </nav>
         <section>
-          {userTasks.length > 0 ? (
-            userTasks.map((value) => (
-              <Task
-                key={value._id}
-                hasButtons={true}
-                hasVisibility={true}
-                complete={value.status === "completed" ? true : false}
-                title={value.title}
-                description={value.description}
-                status={value.status}
-                visibility={value.visibility}
-                editBtn={() => handleEditBtn(value)}
-                deleteBtn={() => handleDeleteBtn(value._id)}
-              />
-            ))
+          {isLoading ? (
+            <div className="loading">
+              <img src={LoadingSvg} alt="loading svg" />
+            </div>
+          ) : userTasks.length > 0 ? (
+            <>
+              {userTasks.map((value) => (
+                <Task
+                  key={value._id}
+                  hasButtons={true}
+                  hasVisibility={true}
+                  complete={value.status === "completed" ? true : false}
+                  title={value.title}
+                  description={value.description}
+                  status={value.status}
+                  visibility={value.visibility}
+                  editBtn={() => handleEditBtn(value)}
+                  deleteBtn={() => handleDeleteBtn(value._id)}
+                />
+              ))}
+            </>
           ) : (
-            <p className="user-no-tasks"> You don't have tasks yet</p>
+            <div className="user-no-tasks-div">
+              <p className="user-no-tasks">You don't have tasks yet</p>
+            </div>
           )}
         </section>
       </main>

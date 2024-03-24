@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import DefaultImage from "../../assets/images/default_img.webp";
 import PhotoName from "../photo-name/PhotoName";
+import LoadingSvg from "../../assets/svg/whiteLoader.svg";
 import "./Aside.sass";
 
 interface UserDataProps {
@@ -38,6 +39,7 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
   const [userData, setUserData] = useState<UserDataProps>(initialUserData);
   const [userFriends, setUserFriends] = useState<UserFriendsProps[]>([]);
   const [userId, setUserId] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     loadUserData();
@@ -84,6 +86,7 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
       });
 
       setUserFriends(response.data.friends);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error loading user data:", error);
     }
@@ -118,7 +121,11 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
       <section className="friends-sec">
         <h2>Friends</h2>
         <div className="friends">
-          {userFriends.length > 0 ? (
+          {isLoading ? (
+            <div className="loading-father">
+              <img className="loading" src={LoadingSvg} alt="loading svg" />
+            </div>
+          ) : userFriends.length > 0 ? (
             userFriends.map((friend) => (
               <PhotoName
                 key={friend._id}
