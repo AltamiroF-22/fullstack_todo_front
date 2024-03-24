@@ -60,7 +60,8 @@ const Register: React.FC = () => {
       console.log(response);
 
       navigate("/login");
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Erro ao criar usuário:", error);
       if (error.response && error.response.status === 409) {
         const errorMessage = error.response.data.message;

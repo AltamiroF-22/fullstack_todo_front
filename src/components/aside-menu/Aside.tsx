@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Link } from "react-router-dom";
-import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
+// import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import DefaultImage from "../../assets/images/default_img.webp";
 import PhotoName from "../photo-name/PhotoName";
 import "./Aside.sass";
