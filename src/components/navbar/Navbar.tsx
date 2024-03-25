@@ -2,10 +2,12 @@ import { useState } from "react";
 //icons
 import Search from "../../assets/svg/Search.svg";
 import Hamburguer from "../../assets/svg/hambuerger-menu.svg";
+import CloseIcon from '../../assets/svg/Vectorx-mark-black.svg'
 // style
 import "./Navbar.sass";
 //components
 import Aside from "../aside-menu/Aside";
+import SearchUser from "../search_user/SearchUser";
 
 const Navbar = () => {
   const [asideMenu, setAsideMenu] = useState<boolean>(false);
@@ -31,7 +33,7 @@ const Navbar = () => {
           <li className="button-li">
             <img
               className="img"
-              src={Search}
+              src={!searchMenu ? Search : CloseIcon}
               alt="search icon"
               onClick={handleShowSearch}
             />
@@ -47,6 +49,7 @@ const Navbar = () => {
         </ul>
       </nav>
       {asideMenu && <Aside CloseBtn={handleCloseBtn} />}
+      {searchMenu&& <SearchUser/>}
     </>
   );
 };

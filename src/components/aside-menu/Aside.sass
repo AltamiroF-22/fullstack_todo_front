@@ -9,7 +9,7 @@
     width: 400px
     min-height: 100vh
     padding: 15px
-    z-index: 2
+    z-index: 50
     top: 0
     right: 0
     // background-color: variables.$dark-gray
@@ -134,16 +134,17 @@
             
     
 
+
 .friends::-webkit-scrollbar 
     width: 10px
-    // background-color: variables.$green-color-white
+    border: dashed 1px #333
+    border-radius: 20px
 
 .friends::-webkit-scrollbar-thumb 
-    background-color: #111
-    border-radius: 10px
-
-
+    background-color: transparent
+    border: solid 1px #333
+    border-radius: 20px
+    cursor: s-resize
 
 .friends::-webkit-scrollbar-track 
     background-color: transparent
-

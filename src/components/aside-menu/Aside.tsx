@@ -43,6 +43,9 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
 
   useEffect(() => {
     loadUserData();
+  }, []);
+
+  useEffect(() => {
     loadUserFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);

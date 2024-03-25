@@ -1,0 +1,37 @@
+@use '../../sass/_variables'
+
+
+
+.photo > div
+    width: 100%
+            
+.photo
+    padding: .3rem 0
+    border-bottom: dashed 1px variables.$gray-color
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .follow
+        border: solid 1px  variables.$dark-gray
+        color: variables.$dark-gray
+        background: transparent
+        transition: .2s
+        height: 100%
+        border-radius: .3rem
+        padding: .4rem 1rem
+        cursor: pointer
+        &:hover
+            color: variables.$white-color
+            background-color: variables.$dark-gray
+    .remove
+        border: solid 1px  variables.$dark-gray
+        color: variables.$dark-gray
+        background: transparent
+        transition: .2s
+        height: 100%
+        border-radius: .3rem
+        padding: .4rem 1rem
+        cursor: pointer
+        &:hover
+            color: variables.$red-pink
+            border-color: variables.$red-pink
