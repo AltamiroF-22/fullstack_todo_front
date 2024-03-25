@@ -6,13 +6,13 @@ interface EditingAddTasksProps {
   popUpTitle: string;
   closePopUp: () => void;
   onSubmit: (formData: {
-      title: string;
-      description: string;
-      visibility: string;
-      status: string;
-    }) => void;
-    defaultTitle?: string;
-    defaultDescription?: string;
+    title: string;
+    description: string;
+    visibility: string;
+    status: string;
+  }) => void;
+  defaultTitle?: string;
+  defaultDescription?: string;
 }
 
 const EditingAddTasks = ({
@@ -61,7 +61,7 @@ const EditingAddTasks = ({
   };
 
   return (
-    <main className="background-blur" >
+    <main className="background-blur">
       <section className="pop-up">
         <nav>
           <ul>
@@ -144,8 +144,16 @@ const EditingAddTasks = ({
               <label htmlFor="completed">Completed</label>
             </div>
 
-            <p>title: <span> {defaultTitle}</span></p>
-            <p>description: <span>{defaultDescription}</span></p>
+            {defaultDescription && defaultTitle && (
+              <>
+                <p>
+                  title: <span> {defaultTitle}</span>
+                </p>
+                <p>
+                  description: <span>{defaultDescription}</span>
+                </p>
+              </>
+            )}
           </div>
           <button type="submit">Submit</button>
         </form>
