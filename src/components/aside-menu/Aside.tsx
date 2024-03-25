@@ -122,7 +122,7 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
       </section>
 
       <section className="friends-sec">
-        <h2>Friends</h2>
+        <h2>Followed by you.</h2>
         <div className="friends">
           {isLoading ? (
             <div className="loading-father">
@@ -142,7 +142,7 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
               />
             ))
           ) : (
-            <p className="no-f-msg">No friends found :/</p>
+            <p className="no-f-msg">You aren't following nobody...</p>
           )}
         </div>
         <footer>
