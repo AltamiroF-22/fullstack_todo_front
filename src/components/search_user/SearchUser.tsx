@@ -3,6 +3,7 @@ import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import SingleUserSearched from "../singleUserSearched/SingleUserSearched";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import LoadingSvg from "../../assets/svg/loader.svg";
 
 interface UsersSearchedProps {
   _id: string;
@@ -15,6 +16,7 @@ interface UsersSearchedProps {
 const SearchUser = () => {
   const [usersSearched, setUsersSearched] = useState<UsersSearchedProps[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getAllUsers();
@@ -36,6 +38,7 @@ const SearchUser = () => {
       });
 
       setUsersSearched(response.data.users);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -50,13 +53,12 @@ const SearchUser = () => {
         return;
       }
 
-      const response = await api.put(`/user-search/${_id}`, {
+      await api.put(`/user-search/${_id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log(response);
       getAllUsers();
     } catch (error) {
       console.error(error);
@@ -98,19 +100,26 @@ const SearchUser = () => {
         />
       </nav>
       <section className="users">
-        {usersSearched.map((user) => (
-          <SingleUserSearched
-            key={user._id}
-            image={
-              DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)].image
-            }
-            name={user.name}
-            email={user.email}
-            follow={user.isFollowing}
-            addFriend={() => handleFollow(user._id)}
-            removeFriend={() => handleUnfollow(user._id)}
-          />
-        ))}
+        {isLoading ? (
+          <div className="loading">
+            <img src={LoadingSvg} alt="loading svg" />
+          </div>
+        ) : (
+          usersSearched.map((user) => (
+            <SingleUserSearched
+              key={user._id}
+              image={
+                DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
+                  .image
+              }
+              name={user.name}
+              email={user.email}
+              follow={user.isFollowing}
+              addFriend={() => handleFollow(user._id)}
+              removeFriend={() => handleUnfollow(user._id)}
+            />
+          ))
+        )}
       </section>
     </main>
   );

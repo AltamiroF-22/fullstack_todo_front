@@ -19,6 +19,8 @@
         width: 150px
 
     .user-nav-top
+        top: 0
+        position: sticky
         display: flex
         justify-content: space-between
         align-items: center
@@ -44,7 +46,14 @@
             outline: none
             border-bottom: solid 1px variables.$gray-color
 
-       
+    .loading
+        height: 45vh
+        display: grid
+        place-content: center
+
+        img
+            width: 4rem
+            
                     
 
 .search-user::-webkit-scrollbar 

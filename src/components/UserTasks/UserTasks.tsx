@@ -26,16 +26,16 @@ const UserTasks = () => {
   const [defaultDescription, setDefaultDescription] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  //looping de req daqui até
   useEffect(() => {
     loadUserData();
   }, []);
-  
+
   useEffect(() => {
     loadUserTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
+  // load user Authenticated
   const loadUserData = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -57,6 +57,7 @@ const UserTasks = () => {
     }
   };
 
+  //load all User's tasks
   const loadUserTasks = async () => {
     const token = localStorage.getItem("jwtToken");
 
@@ -74,10 +75,9 @@ const UserTasks = () => {
       setIsLoading(false);
       setUserTasks(response.data.tasks);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-  //------aqui------------
 
   // add new task
   const handleAddNewTask = () => {
@@ -95,7 +95,6 @@ const UserTasks = () => {
     status: string;
   }) => {
     try {
-      console.log(formData);
       const token = localStorage.getItem("jwtToken");
 
       if (!token) {
@@ -103,15 +102,16 @@ const UserTasks = () => {
         return;
       }
 
-      await api.post("/new-task", formData, {
+      const response = await api.post("/new-task", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
+      setUserTasks((prevUserTasks) => [...prevUserTasks, response.data.task]);
       setShowAddPopUp(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -134,7 +134,7 @@ const UserTasks = () => {
         console.error("Token not found in localStorage");
         return;
       }
-      const response = await api.delete(`/single-task/${taskId}`, {
+      await api.delete(`/single-task/${taskId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -143,14 +143,12 @@ const UserTasks = () => {
       const allTasks = userTasks.filter((task) => task._id !== taskId);
       setUserTasks(allTasks);
       setShowDeletePopUp(false);
-
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
   };
 
-  /// editing task
+  // editing task
   const handleEditBtn = (value: TasksProps) => {
     setShowEditingPopUp(true);
     setTaskId(value._id);
@@ -175,21 +173,25 @@ const UserTasks = () => {
         console.error("Token not found in localStorage");
         return;
       }
-      await api.patch(`/single-task/${taskId}`, formData, {
+      const response = await api.patch(`/single-task/${taskId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
+      const updatedUserTasks = userTasks.map((task) =>
+        task._id === taskId ? response.data.task : task
+      );
+
+      setUserTasks(updatedUserTasks);
       setShowEditingPopUp(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (
     <>
       {/* PopUps */}
-
       {showAddPopUp && (
         <EditingAddTasks
           method="POST"
@@ -216,8 +218,8 @@ const UserTasks = () => {
           closePopUp={handleCloseEditingPopUp}
         />
       )}
-
       {/* End of PopUps */}
+
       <main className="user-tasks">
         <nav className="user-nav-top">
           <div className="userPhoto">
