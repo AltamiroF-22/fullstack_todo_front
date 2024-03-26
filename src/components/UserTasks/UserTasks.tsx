@@ -26,11 +26,15 @@ const UserTasks = () => {
   const [defaultDescription, setDefaultDescription] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  //looping de req daqui até
+  useEffect(() => {
+    loadUserData();
+  }, []);
+  
   useEffect(() => {
     loadUserTasks();
-    loadUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, userTasks]);
+  }, [userId]);
 
   const loadUserData = async () => {
     try {
@@ -73,6 +77,8 @@ const UserTasks = () => {
       console.log(error);
     }
   };
+  //------aqui------------
+
   // add new task
   const handleAddNewTask = () => {
     setShowAddPopUp(true);
