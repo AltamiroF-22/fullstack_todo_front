@@ -25,8 +25,7 @@ interface UserFriendsProps {
 
 interface CloseProps {
   closeBtn: () => void;
-  closeOnLink: ()=> void
-  
+  closeOnLink: () => void;
 }
 const initialUserData: UserDataProps = {
   _id: "",
@@ -37,7 +36,7 @@ const initialUserData: UserDataProps = {
   profilePicture: DefaultImage,
 };
 
-const Aside = ({ closeBtn,closeOnLink }: CloseProps) => {
+const Aside = ({ closeBtn, closeOnLink }: CloseProps) => {
   const [userData, setUserData] = useState<UserDataProps>(initialUserData);
   const [userFriends, setUserFriends] = useState<UserFriendsProps[]>([]);
   const [userId, setUserId] = useState<string>("");
@@ -105,11 +104,13 @@ const Aside = ({ closeBtn,closeOnLink }: CloseProps) => {
         ) : (
           <PhotoName name={userData.name} image={DefaultImage} />
         )} */}
-        <PhotoName
-          name={userData.name}
-          email={userData.email}
-          image={DefaultGIFs[14].image}
-        />
+        <Link className="link-to-home" to={"/"} onClick={closeOnLink}>
+          <PhotoName
+            name={userData.name}
+            email={userData.email}
+            image={DefaultGIFs[14].image}
+          />
+        </Link>
         <button className="close-aside" onClick={closeBtn}>
           close
         </button>
@@ -132,7 +133,11 @@ const Aside = ({ closeBtn,closeOnLink }: CloseProps) => {
             </div>
           ) : userFriends.length > 0 ? (
             userFriends.map((friend) => (
-              <Link className="link-to-friend-tasks" to={`/friend-tasks/${friend._id}`} onClick={closeOnLink}>
+              <Link
+                className="link-to-friend-tasks"
+                to={`/friend-tasks/${friend._id}`}
+                onClick={closeOnLink}
+              >
                 <PhotoName
                   key={friend._id}
                   // image={friend.profilePicture ? friend.profilePicture : DefaultImage}
