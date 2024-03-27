@@ -31,6 +31,10 @@ const Register: React.FC = () => {
         createError(nameRef, "Name must have at least 4 characters!");
         keep = false;
       }
+      if (name.trim().length > 15) {
+        createError(nameRef, "Name can't have more than 15 characters!");
+        keep = false;
+      }
       if (email.trim().length < 1) {
         createError(emailRef, "Email is required!");
         keep = false;
@@ -60,7 +64,7 @@ const Register: React.FC = () => {
       console.log(response);
 
       navigate("/login");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Erro ao criar usuário:", error);
       if (error.response && error.response.status === 409) {

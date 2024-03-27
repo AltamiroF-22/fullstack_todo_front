@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 //icons
 import Search from "../../assets/svg/Search.svg";
 import Hamburguer from "../../assets/svg/hambuerger-menu.svg";
-import CloseIcon from '../../assets/svg/Vectorx-mark-black.svg'
+import CloseIcon from "../../assets/svg/Vectorx-mark-black.svg";
 // style
 import "./Navbar.sass";
 //components
@@ -21,14 +23,19 @@ const Navbar = () => {
     setAsideMenu(false);
   };
 
+  const handleCloseSearch = () => {
+    setSearchMenu(false);
+  };
+
   const handleShowSearch = () => {
     setSearchMenu(!searchMenu);
   };
-
   return (
     <>
       <nav className="nav">
-        <h1 className="title">TODOLIST</h1>
+        <Link className="title" to="/">
+          TODOLIST
+        </Link>
         <ul className="icons">
           <li className="button-li">
             <img
@@ -48,8 +55,10 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
-      {asideMenu && <Aside CloseBtn={handleCloseBtn} />}
-      {searchMenu&& <SearchUser/>}
+      {asideMenu && (
+        <Aside closeBtn={handleCloseBtn} closeOnLink={handleCloseBtn} />
+      )}
+      {searchMenu && <SearchUser closeSearch={handleCloseSearch} />}
     </>
   );
 };

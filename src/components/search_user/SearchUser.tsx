@@ -4,6 +4,7 @@ import SingleUserSearched from "../singleUserSearched/SingleUserSearched";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import LoadingSvg from "../../assets/svg/loader.svg";
+import { Link } from "react-router-dom";
 
 interface UsersSearchedProps {
   _id: string;
@@ -13,7 +14,11 @@ interface UsersSearchedProps {
   userPicture?: string;
 }
 
-const SearchUser = () => {
+interface SearchUserProps {
+  closeSearch: () => void;
+}
+
+const SearchUser = ({ closeSearch }: SearchUserProps) => {
   const [usersSearched, setUsersSearched] = useState<UsersSearchedProps[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -106,18 +111,20 @@ const SearchUser = () => {
           </div>
         ) : (
           usersSearched.map((user) => (
-            <SingleUserSearched
-              key={user._id}
-              image={
-                DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
-                  .image
-              }
-              name={user.name}
-              email={user.email}
-              follow={user.isFollowing}
-              addFriend={() => handleFollow(user._id)}
-              removeFriend={() => handleUnfollow(user._id)}
-            />
+            <Link className="link-to-users-tasks" to={`/friend-tasks/${user._id}`} onClick={closeSearch}>
+              <SingleUserSearched
+                key={user._id}
+                image={
+                  DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
+                    .image
+                }
+                name={user.name}
+                email={user.email}
+                follow={user.isFollowing}
+                addFriend={() => handleFollow(user._id)}
+                removeFriend={() => handleUnfollow(user._id)}
+              />
+            </Link>
           ))
         )}
       </section>

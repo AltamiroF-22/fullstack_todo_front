@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeRoute from "./routes/HomeRoute.tsx";
 import LoginRoute from "./routes/LoginRoute.tsx";
 import RegisterRoute from "./routes/RegisterRoute.tsx";
+import FriendsTasksRoute from "./routes/FriendsTasksRoute.tsx";
 
 //Routes
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomeRoute />,
+      },
+      {
+        path: "/friend-tasks/:id",
+        element: <FriendsTasksRoute />,
       },
       { path: "/login", element: <LoginRoute /> },
       { path: "/register", element: <RegisterRoute /> },

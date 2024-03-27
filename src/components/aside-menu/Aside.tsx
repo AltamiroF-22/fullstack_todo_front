@@ -23,8 +23,10 @@ interface UserFriendsProps {
   email: string;
 }
 
-interface ButtonProps {
-  CloseBtn: () => void;
+interface CloseProps {
+  closeBtn: () => void;
+  closeOnLink: ()=> void
+  
 }
 const initialUserData: UserDataProps = {
   _id: "",
@@ -35,7 +37,7 @@ const initialUserData: UserDataProps = {
   profilePicture: DefaultImage,
 };
 
-const Aside = ({ CloseBtn }: ButtonProps) => {
+const Aside = ({ closeBtn,closeOnLink }: CloseProps) => {
   const [userData, setUserData] = useState<UserDataProps>(initialUserData);
   const [userFriends, setUserFriends] = useState<UserFriendsProps[]>([]);
   const [userId, setUserId] = useState<string>("");
@@ -108,7 +110,7 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
           email={userData.email}
           image={DefaultGIFs[14].image}
         />
-        <button className="close-aside" onClick={CloseBtn}>
+        <button className="close-aside" onClick={closeBtn}>
           close
         </button>
       </section>
@@ -130,16 +132,18 @@ const Aside = ({ CloseBtn }: ButtonProps) => {
             </div>
           ) : userFriends.length > 0 ? (
             userFriends.map((friend) => (
-              <PhotoName
-                key={friend._id}
-                // image={friend.profilePicture ? friend.profilePicture : DefaultImage}
-                image={
-                  DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
-                    .image
-                }
-                name={friend.name}
-                email={friend.email}
-              />
+              <Link className="link-to-friend-tasks" to={`/friend-tasks/${friend._id}`} onClick={closeOnLink}>
+                <PhotoName
+                  key={friend._id}
+                  // image={friend.profilePicture ? friend.profilePicture : DefaultImage}
+                  image={
+                    DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
+                      .image
+                  }
+                  name={friend.name}
+                  email={friend.email}
+                />
+              </Link>
             ))
           ) : (
             <p className="no-f-msg">You aren't following nobody...</p>
