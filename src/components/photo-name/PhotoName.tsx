@@ -3,23 +3,26 @@ import "./PhotoName.sass";
 interface UserImageProps {
   image: string;
   name: string;
-  email?: string;
-  color?: string
-
+  email: string;
+  color?: string;
 }
 
-const PhotoName = ({ image, name,email, color }: UserImageProps) => {
-  let username = name;
+const PhotoName = ({ image, name, email, color }: UserImageProps) => {
+  let userName = name;
+  let userEmail = email;
 
-  if (name?.length > 15) {
-    username = name.slice(0, 15) + "...";
+  if (name.length > 15) {
+    userName = name.slice(0, 15) + "...";
+  }
+  if (email.length > 20) {
+    userEmail = email.slice(0, 20) + "...";
   }
   return (
-    <figure className="profile" >
+    <figure className="profile">
       <img className="profile-photo" src={image} alt="profile picture"></img>
-      <div className={`data ${color === 'black' ? 'black' : ''}`}>
-        <figcaption>{username}</figcaption>
-        <figcaption className="small">{email}</figcaption>
+      <div className={`data ${color === "black" ? "black" : ""}`}>
+        <figcaption>{userName}</figcaption>
+        <figcaption className="small">{userEmail}</figcaption>
       </div>
     </figure>
   );

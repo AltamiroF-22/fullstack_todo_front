@@ -111,20 +111,28 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
           </div>
         ) : (
           usersSearched.map((user) => (
-            <Link className="link-to-users-tasks" to={`/friend-tasks/${user._id}`} onClick={closeSearch}>
+            <div className="single-user">
+              <Link
+                className="link-to-users-tasks"
+                to={`/friend-tasks/${user._id}`}
+                onClick={closeSearch}
+              >
+                <SingleUserSearched
+                  key={user._id}
+                  image={
+                    DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
+                      .image
+                  }
+                  name={user.name}
+                  email={user.email}
+                />
+              </Link>
               <SingleUserSearched
-                key={user._id}
-                image={
-                  DefaultGIFs[Math.floor(Math.random() * DefaultGIFs.length)]
-                    .image
-                }
-                name={user.name}
-                email={user.email}
                 follow={user.isFollowing}
                 addFriend={() => handleFollow(user._id)}
                 removeFriend={() => handleUnfollow(user._id)}
               />
-            </Link>
+            </div>
           ))
         )}
       </section>
