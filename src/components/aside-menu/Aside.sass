@@ -127,7 +127,22 @@
         bottom: 0
         padding: 1rem 0
         text-align: center
+        display: flex
+        justify-content: space-between
+        align-items: center
         width: 93%
+
+        .logout
+            background: transparent
+            color: #ccc
+            padding: .5rem 1rem
+            border: solid 1px
+            border-radius: .3rem
+            cursor: pointer
+            transition: .1s
+            &:hover
+                color: variables.$red-pink
+
         small
             font-size: .8rem
         a
@@ -139,6 +154,7 @@
                 color: variables.$green-color
   
     
+
 
 
 .friends::-webkit-scrollbar 

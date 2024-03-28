@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import DefaultImage from "../../assets/images/default_img.webp";
 import PhotoName from "../photo-name/PhotoName";
@@ -41,6 +41,7 @@ const Aside = ({ closeBtn, closeOnLink }: CloseProps) => {
   const [userFriends, setUserFriends] = useState<UserFriendsProps[]>([]);
   const [userId, setUserId] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const navigate = useNavigate()
 
   useEffect(() => {
     loadUserData();
@@ -50,6 +51,11 @@ const Aside = ({ closeBtn, closeOnLink }: CloseProps) => {
     loadUserFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+    navigate('/login')
+  };
 
   const loadUserData = async () => {
     try {
@@ -155,12 +161,10 @@ const Aside = ({ closeBtn, closeOnLink }: CloseProps) => {
           )}
         </div>
         <footer>
-          <small> &copy; junior.rx22</small>{" "}
-          <span>
-            <Link to="https://www.instagram.com/junior.rx22/" target="blank">
-              instagram
-            </Link>
-          </span>
+          <small> &copy; junior.rx22</small>
+          <button className="logout" onClick={handleLogout}>
+            logout
+          </button>
         </footer>
       </section>
     </aside>
