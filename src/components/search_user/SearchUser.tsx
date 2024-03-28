@@ -25,34 +25,29 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
 
   useEffect(() => {
     getAllUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchInput]);
+  }, []);
 
   const getAllUsers = async () => {
     try {
-      if (usersSearched.length === 0) {
-        const token = localStorage.getItem("jwtToken");
+      const token = localStorage.getItem("jwtToken");
 
-        if (!token) {
-          console.error("Token not found in localStorage");
-          return;
-        }
-        const response = await api.get(`/user-search/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const toLowerCaseUsers = response.data.users.map(
-          (user: UsersSearchedProps) => ({
-            ...user,
-            name: user.name.toLowerCase(),
-          })
-        );
-
-        setUsersSearched(toLowerCaseUsers);
+      if (!token) {
+        console.error("Token not found in localStorage");
+        return;
       }
+      const response = await api.get(`/user-search/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      const toLowerCaseUsers = response.data.users.map(
+        (user: UsersSearchedProps) => ({
+          ...user,
+          name: user.name.toLowerCase(),
+        })
+      );
+      setUsersSearched(toLowerCaseUsers);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -78,7 +73,6 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       getAllUsers();
     } catch (error) {
       console.error(error);
@@ -99,7 +93,6 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       getAllUsers();
     } catch (error) {
       console.error(error);
