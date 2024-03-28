@@ -21,6 +21,7 @@ const Navbar = () => {
 
   const handleCloseBtn = () => {
     setAsideMenu(false);
+    setSearchMenu(false);
   };
 
   const handleCloseSearch = () => {
@@ -55,10 +56,23 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
-      {asideMenu && (
-        <Aside closeBtn={handleCloseBtn} closeOnLink={handleCloseBtn} />
-      )}
-      {searchMenu && <SearchUser closeSearch={handleCloseSearch} />}
+      <aside className="aside-container">
+        <div className="overerlay-aside">
+          <div className={`aside ${asideMenu ? "aside-on" : "aside-off"}`}>
+            <Aside closeBtn={handleCloseBtn} closeOnLink={handleCloseBtn} />
+          </div>
+        </div>
+      </aside>
+
+      <section className="overlay-section">
+        <div
+          className={`search-main ${
+            searchMenu ? "search-main-on" : "search-main-off"
+          }`}
+        >
+          <SearchUser closeSearch={handleCloseSearch} />
+        </div>
+      </section>
     </>
   );
 };
