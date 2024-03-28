@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./sass/main.sass";
-import AuthProvider from "./context/AuthProvider.tsx";
-// import ProtectedRoute from "./context/ProtectedRoute.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -12,6 +10,7 @@ import HomeRoute from "./routes/HomeRoute.tsx";
 import LoginRoute from "./routes/LoginRoute.tsx";
 import RegisterRoute from "./routes/RegisterRoute.tsx";
 import FriendsTasksRoute from "./routes/FriendsTasksRoute.tsx";
+import PrivateRoute from "./routes/privateRoute.tsx";
 
 //Routes
 const router = createBrowserRouter([
@@ -21,11 +20,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomeRoute />,
+        element: (
+          <PrivateRoute>
+            <HomeRoute />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/friend-tasks/:id",
-        element: <FriendsTasksRoute />,
+        element: (
+          <PrivateRoute>
+            <FriendsTasksRoute />
+          </PrivateRoute>
+        ),
       },
       { path: "/login", element: <LoginRoute /> },
       { path: "/register", element: <RegisterRoute /> },
@@ -35,8 +42,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AuthProvider isSignedIn={false}>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
