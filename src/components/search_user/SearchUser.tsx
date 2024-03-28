@@ -30,24 +30,39 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
 
   const getAllUsers = async () => {
     try {
-      const token = localStorage.getItem("jwtToken");
+      if (usersSearched.length === 0) {
+        const token = localStorage.getItem("jwtToken");
 
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
+        if (!token) {
+          console.error("Token not found in localStorage");
+          return;
+        }
+        const response = await api.get(`/user-search/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const toLowerCaseUsers = response.data.users.map(
+          (user: UsersSearchedProps) => ({
+            ...user,
+            name: user.name.toLowerCase(),
+          })
+        );
+
+        setUsersSearched(toLowerCaseUsers);
       }
-      const response = await api.get(`/user-search/?name=${searchInput}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      setUsersSearched(response.data.users);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // search for users in the fron to avoid useless requisitions to my api
+  const filteredUsers = usersSearched.filter((user) =>
+    user.name.startsWith(searchInput)
+  );
 
   const handleFollow = async (_id: string) => {
     try {
@@ -101,7 +116,8 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
         <input
           type="text"
           placeholder={"Search user..."}
-          onChange={(e) => setSearchInput(e.target.value)}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value.toLowerCase())}
         />
       </nav>
       <section className="users">
@@ -110,7 +126,7 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
             <img src={LoadingSvg} alt="loading svg" />
           </div>
         ) : (
-          usersSearched.map((user) => (
+          filteredUsers.map((user) => (
             <div className="single-user">
               <Link
                 className="link-to-users-tasks"
