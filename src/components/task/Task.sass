@@ -1,4 +1,5 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
 
 .task
     display: flex
@@ -9,6 +10,16 @@
     margin: 0 auto
     padding: 0 5px
     gap: 10px
+    @include mixins.responsive-max-width-1240px
+        display: grid
+        grid-template-columns: repeat(1, 1fr)
+        margin-bottom: 1rem
+        padding-bottom: 1rem 
+        gap: 3px
+        &:last-child 
+            grid-column: span 2
+
+
 
     .p-father   
         display: grid
@@ -21,6 +32,16 @@
         width: 150px
         height: 80px
         flex-grow: 1
+        @include mixins.responsive-max-width-1240px
+            width: 100%
+            border: solid 1px variables.$dark-gray
+            border-radius: 4px
+            margin: 0
+            &:last-child 
+                margin-top: 100px
+
+
+
         p
             overflow-y: auto
 
@@ -29,6 +50,8 @@
     .p-father:nth-child(2)     
         width: 210px
         min-width: 300px
+        @include mixins.responsive-max-width-1240px
+            min-width: 100%
 
     .complete
         text-decoration: line-through
@@ -39,6 +62,11 @@
         justify-content: center
         align-items: center
         gap: 15px
+        @include mixins.responsive-max-width-1240px
+            width: 100%
+            gap: 3px
+            justify-content: space-between
+
         .task-btn
             width: 85px
             height: 50px
@@ -49,6 +77,10 @@
             border-radius:7px
             cursor: pointer
             transition: .1s
+            @include mixins.responsive-max-width-1240px
+                width: 100%
+                border-radius: 4px
+
 
         .delet
             &:hover

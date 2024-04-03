@@ -1,4 +1,5 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
 
 .container
     width: 100%
@@ -16,6 +17,11 @@
         color: variables.$gray-color
         font-weight: normal
         font-family: variables.$barcode-font
+        @include mixins.responsive-max-width-600px
+            left: 50%
+            transform: translateX(-50%)
+
+
     
     .form-father
         background-color: variables.$white-color
@@ -26,6 +32,8 @@
         align-content: center
         justify-content: space-around
         max-width: 600px
+        @include mixins.responsive-max-width-600px
+            width: 100vw
 
         h1
             padding: 15px 0 30px 0
@@ -40,6 +48,8 @@
             gap: 10px
             display: flex
             flex-direction: column
+            @include mixins.responsive-max-width-600px
+                gap: 1rem
 
 
             .input-label

@@ -2,4 +2,21 @@
     backdrop-filter: blur(5px)
     background-color: #2826234d
 
-    
+@mixin responsive-max-width-600px 
+  @media screen and (max-width: 600px) 
+    @content
+  
+@mixin responsive-max-width-850px 
+  @media screen and (max-width: 850px) 
+    @content
+@mixin responsive-max-width-950px 
+  @media screen and (max-width: 950px) 
+    @content
+  
+@mixin responsive-max-width-1030px 
+  @media screen and (max-width: 1030px) 
+    @content
+  
+@mixin responsive-max-width-1240px 
+  @media screen and (max-width: 1240px) 
+    @content
