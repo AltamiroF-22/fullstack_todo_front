@@ -67,9 +67,8 @@ const Login: React.FC = () => {
         console.error(
           "Token de autorização não encontrado na resposta do servidor."
         );
-
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Erro ao fazer login:", error);
       if (error.response) {
@@ -130,6 +129,20 @@ const Login: React.FC = () => {
           </Link>
         </p>
       </section>
+
+      <div className="warning">
+        <p>
+          It takes a few minutes for the API to start responding to requests
+          since it's hosted on a free plan :|
+          <br />
+          If it takes longer than a few minutes, I might forget to re-host the
+          API, given that the free plan only lasts for three months! <br />{" "}
+          please tell me if is taking more than few minutes{" "}
+          <a target="blank" href="https://www.instagram.com/junior.rx22/">
+            instagram
+          </a>
+        </p>
+      </div>
     </main>
   );
 };

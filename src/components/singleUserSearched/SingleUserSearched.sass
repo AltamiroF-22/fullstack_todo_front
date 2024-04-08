@@ -1,4 +1,6 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
+
 
 
 
@@ -10,6 +12,7 @@
     display: flex
     justify-content: space-between
     align-items: center
+    padding: 0 .3rem
     .follow
         border: solid 1px  variables.$dark-gray
         color: variables.$dark-gray
@@ -19,6 +22,10 @@
         border-radius: .3rem
         padding: .4rem 1rem
         cursor: pointer
+        @include mixins.responsive-max-width-600px
+            padding: .35rem .8rem
+
+
         &:hover
             color: variables.$white-color
             background-color: variables.$dark-gray
@@ -31,6 +38,8 @@
         border-radius: .3rem
         padding: .4rem 1rem
         cursor: pointer
+        @include mixins.responsive-max-width-600px
+            padding: .35rem .8rem
         &:hover
             color: variables.$red-pink
             border-color: variables.$red-pink

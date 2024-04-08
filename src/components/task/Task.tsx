@@ -34,6 +34,7 @@ const Task = ({
       <div className="p-father">
         <p className={`${complete ? "complete" : ""}`}> {status}</p>
       </div>
+      
       {hasVisibility && (
         <div className="p-father">
           <p className={`${complete ? "complete" : ""}`}>{visibility}</p>

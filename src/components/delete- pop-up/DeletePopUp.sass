@@ -23,6 +23,10 @@
         flex-direction: column
         border-radius: 1rem
         gap: 3rem
+        @include mixins.responsive-max-width-600px
+            width: 98vw
+            
+
 
         h1
             font-size: 1.2rem
@@ -35,6 +39,9 @@
             display: flex
             justify-content: center
             gap: 1rem
+            @include mixins.responsive-max-width-600px
+                gap: 2rem
+
 
             button
                 font-size: .9rem
@@ -46,6 +53,10 @@
                 background-color: transparent
                 outline: none
                 transition: .2s
+                @include mixins.responsive-max-width-600px
+                    padding: 0.5rem 2.4rem
+
+
                 &:hover
                     background-color: variables.$dark-gray
                     color: variables.$white-color

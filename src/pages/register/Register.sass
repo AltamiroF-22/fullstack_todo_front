@@ -32,6 +32,7 @@
         align-content: center
         justify-content: space-around
         max-width: 600px
+        z-index: 3
         @include mixins.responsive-max-width-600px
             width: 100vw
 
@@ -89,6 +90,22 @@
         .p
             text-decoration: none
             color: variables.$green-color
+
+    .warning
+        width: 100%
+        position: absolute
+        left: 50%
+        transform: translateX(-50%)
+        bottom: 0
+        background: variables.$dark-gray
+        color: variables.$white-color
+        padding: .4rem
+        p
+            font-size: 13px
+            border-bottom: none
+
+            a
+                color: #1679e2
 
 .error-text
     font-size: .8rem

@@ -21,6 +21,9 @@
         width: 96vw
         margin: 0 1rem
         max-width: 33rem
+        @include mixins.responsive-max-width-1240px
+            padding: 2rem 1rem
+            width: 98vw
 
         nav
             ul
@@ -30,6 +33,7 @@
 
                 li
                     list-style: none
+                    
 
                 .close-pop-up
                     cursor: pointer
@@ -78,14 +82,23 @@
                     display: flex
 
                     input
-                        margin-left: .4rem
+                        margin-left: .4rem                                
                     label
                         margin-left: .4rem
+                        width: 78px
+                            
+                    &:nth-child(2)
+                        @include mixins.responsive-max-width-600px
+                            flex-direction: column
+                        
+                        
 
                 p          
                     overflow-y: auto
                     max-height: 5rem
                     font-weight: 600
+                  
+                            
                     span
                         font-weight: normal
                         color: variables.$dark-gray

@@ -1,4 +1,5 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
 
 
 .userFriend-nav-bottom
@@ -11,6 +12,9 @@
     ul
         display: flex
         justify-content: space-between
+        @include mixins.responsive-max-width-600px
+            flex-direction: column
+            gap: 5px
         li
             text-align: center
             flex-grow: 2

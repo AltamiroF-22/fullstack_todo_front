@@ -1,4 +1,5 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
 
 
 .aside
@@ -16,6 +17,10 @@
     background-color: #000000f6
     backdrop-filter: blur(50px)
     color: variables.$ligh-white
+    @include mixins.responsive-max-width-600px
+        width: 100vw
+     
+
 
     .top
         display: flex

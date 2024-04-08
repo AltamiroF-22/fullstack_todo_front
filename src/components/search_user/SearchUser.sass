@@ -1,4 +1,5 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
 
 
 .search-user
@@ -14,12 +15,22 @@
     padding: 0  2rem
     padding-bottom: 50px
     background-color: variables.$white-color
+    @include mixins.responsive-max-width-1240px
+        width: 98vw
+        padding: 0  .8rem
+    @include mixins.responsive-max-width-600px
+        width: 100%
+
 
     .user-nav-top > div ,h1, input
         width: 150px
+        @include mixins.responsive-max-width-600px
+            width: 100px
+            margin-right: 10px
+
 
     .user-nav-top
-        top: 0
+        top: -1px
         position: sticky
         display: flex
         justify-content: space-between
@@ -66,17 +77,19 @@
                     
 
 .search-user::-webkit-scrollbar 
-    width: 6px
-    border: dashed 1px #111
-    border-radius: 20px
+    // width: 6px
+    // border: dashed 1px #111
+    // border-radius: 20px
+    display: none
+
 
 
 .search-user::-webkit-scrollbar-thumb 
-    background-color: transparent
-    border: solid 1px #111
-    cursor: s-resize
-    border-radius: 20px
+    // background-color: transparent
+    // border: solid 1px #111
+    // cursor: s-resize
+    // border-radius: 20px
 
 
 .search-user::-webkit-scrollbar-track 
-    background-color: transparent
+    // background-color: transparent

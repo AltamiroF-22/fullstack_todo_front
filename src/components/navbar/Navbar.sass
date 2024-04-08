@@ -1,4 +1,5 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
 
 
 .nav
@@ -49,6 +50,8 @@
         width: 400px
         overflow: hidden
         height: 100vh
+        @include mixins.responsive-max-width-600px
+            width: 100vw
         
         .aside
             transition: .2s
