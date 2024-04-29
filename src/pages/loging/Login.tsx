@@ -1,15 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { createError } from "../../utils/createError";
+import { clearErrors } from "../../utils/clearErros";
+import { ErrorResponse, LoginResponse } from "./login_interfaces";
 import "../register/Register.sass";
-
-interface ErrorResponse {
-  message: string;
-}
-
-interface LoginResponse {
-  token: string;
-}
 
 const Login: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -23,76 +18,48 @@ const Login: React.FC = () => {
 
     const form = formRef.current;
     if (!form) return;
-
     const email = emailRef.current?.value ?? "";
     const password = passwordRef.current?.value ?? "";
 
-    for (const errorMsg of form.querySelectorAll(".error-text")) {
-      errorMsg.remove();
+    setHasError(false);
+    clearErrors(form);
+    checkFields(email, password);
+
+    if (!hasError) {
+      login(email, password);
     }
+  };
 
-    const checkFields = () => {
-      let keep = true;
+  const checkFields = (email: string, password: string): void => {
+    if (email.trim().length < 1) {
+      createError(emailRef, "Email is required!");
+      setHasError(true);
+    }
+    if (password.trim().length < 8) {
+      createError(passwordRef, "Password must have at least 8 characters!");
+      setHasError(true);
+    }
+  };
 
-      if (email.trim().length < 1) {
-        createError(emailRef, "Email is required!");
-        keep = false;
-      }
-      if (password.trim().length < 8) {
-        createError(passwordRef, "Password must have at least 8 characters!");
-        keep = false;
-      }
-
-      setHasError(!keep);
-
-      return keep;
-    };
-
-    checkFields();
-    if (hasError) return;
-
+  const login = async (email: string, password: string) => {
     try {
       const response = await api.post<LoginResponse>("/login", {
         email,
         password,
       });
 
-      if (response.data && response.data.token) {
-        const accessToken = response.data.token;
+      localStorage.setItem("jwtToken", response.data.token);
+      navigate("/");
 
-        localStorage.setItem("jwtToken", accessToken);
-
-        navigate("/");
-      } else {
-        console.error(
-          "Token de autorização não encontrado na resposta do servidor."
-        );
-      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error("Erro ao fazer login:", error);
-      if (error.response) {
-        const errorMessage = (error.response.data as ErrorResponse).message;
-        const fieldRef = error.response.data.field;
-        createError(
-          fieldRef === "password" ? passwordRef : emailRef,
-          errorMessage
-        );
-      } else {
-        console.error("Erro não possui propriedade 'response'.");
-      }
+      const errorMessage = (error.response.data as ErrorResponse).message;
+      const fieldRef = error.response.data.field;
+      createError(
+        fieldRef === "password" ? passwordRef : emailRef,
+        errorMessage
+      );
     }
-  };
-
-  const createError = (
-    input: React.RefObject<HTMLInputElement>,
-    message: string
-  ): void => {
-    const div = document.createElement("div");
-    div.innerHTML = message;
-    div.style.color = "red";
-    div.classList.add("error-text");
-    input.current?.insertAdjacentElement("afterend", div);
   };
 
   return (
@@ -136,8 +103,8 @@ const Login: React.FC = () => {
           since it's hosted on a free plan :|
           <br />
           If it takes longer than a few minutes, I might forget to re-host the
-          API, given that the free plan only lasts for three months! <br />{" "}
-          please tell me if is taking more than few minutes{" "}
+          API, given that the free plan only lasts for three months! <br />
+          please tell me if is taking more than few minutes
           <a target="blank" href="https://www.instagram.com/junior.rx22/">
             instagram
           </a>

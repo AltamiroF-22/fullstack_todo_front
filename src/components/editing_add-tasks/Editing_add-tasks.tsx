@@ -49,7 +49,9 @@ const EditingAddTasks = ({
       setErroMsg("The fields can't be empyt!");
       return;
     }
+    
     setErroMsg("");
+
     const formData = {
       title: title,
       description: description,

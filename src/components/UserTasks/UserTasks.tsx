@@ -212,10 +212,10 @@ const UserTasks = () => {
         <EditingAddTasks
           method="PACTH"
           popUpTitle="Editing task"
-          defaultTitle={defaultTitle}
-          defaultDescription={defaultDescription}
           onSubmit={handleFormSubmition}
           closePopUp={handleCloseEditingPopUp}
+          defaultTitle={defaultTitle}
+          defaultDescription={defaultDescription}
         />
       )}
       {/* End of PopUps */}

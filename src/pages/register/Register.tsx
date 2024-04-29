@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { createError } from "../../utils/createError";
+import { clearErrors } from "../../utils/clearErros";
 import "./Register.sass";
 
 const Register: React.FC = () => {
@@ -20,48 +22,40 @@ const Register: React.FC = () => {
     const email = emailRef.current?.value ?? "";
     const password = passwordRef.current?.value ?? "";
 
-    // Remove mensagens de erro antigas
-    for (const errorMsg of form.querySelectorAll(".error-text")) {
-      errorMsg.remove();
-    }
+    setHasError(false);
+    clearErrors(form);
+    checkFields(name, email, password);
 
-    const checkFields = () => {
-      let keep = true;
-      if (name.trim().length < 4) {
-        createError(nameRef, "Name must have at least 4 characters!");
-        keep = false;
-      }
-      if (name.trim().length > 15) {
-        createError(nameRef, "Name can't have more than 15 characters!");
-        keep = false;
-      }
-      if (email.trim().length < 1) {
-        createError(emailRef, "Email is required!");
-        keep = false;
-      }
-      if (password.trim().length < 8) {
-        createError(passwordRef, "Password must have at least 8 characters!");
-        keep = false;
-      }
-
-      setHasError(!keep);
-      if (keep) {
-        setHasError(false);
-        return;
-      }
-    };
-
-    checkFields();
     if (hasError) return;
+    postNewUser(name, email, password);
+  };
 
+  const checkFields = (name: string, email: string, password: string): void => {
+    if (name.trim().length < 4) {
+      createError(nameRef, "Name must have at least 4 characters!");
+      setHasError(true);
+    }
+    if (name.trim().length > 15) {
+      createError(nameRef, "Name can't have more than 15 characters!");
+      setHasError(true);
+    }
+    if (email.trim().length < 1) {
+      createError(emailRef, "Email is required!");
+      setHasError(true);
+    }
+    if (password.trim().length < 8) {
+      createError(passwordRef, "Password must have at least 8 characters!");
+      setHasError(true);
+    }
+  };
+
+  const postNewUser = async (name: string, email: string, password: string) => {
     try {
-      const response = await api.post("/create-user", {
+      await api.post("/create-user", {
         name,
         email,
         password,
       });
-
-      console.log(response);
 
       navigate("/login");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,17 +66,6 @@ const Register: React.FC = () => {
         createError(emailRef, errorMessage);
       }
     }
-  };
-
-  const createError = (
-    input: React.RefObject<HTMLInputElement>,
-    message: string
-  ): void => {
-    const div = document.createElement("div");
-    div.innerHTML = message;
-    div.style.color = "red";
-    div.classList.add("error-text");
-    input.current?.insertAdjacentElement("afterend", div);
   };
 
   return (
@@ -136,8 +119,8 @@ const Register: React.FC = () => {
           since it's hosted on a free plan :|
           <br />
           If it takes longer than a few minutes, I might forget to re-host the
-          API, given that the free plan only lasts for three months! <br />{" "}
-          please tell me if is taking more than few minutes{" "}
+          API, given that the free plan only lasts for three months! <br />
+          please tell me if is taking more than few minutes
           <a target="blank" href="https://www.instagram.com/junior.rx22/">
             instagram
           </a>
