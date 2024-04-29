@@ -2,46 +2,22 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
-import DefaultImage from "../../assets/images/default_img.webp";
 import PhotoName from "../photo-name/PhotoName";
 import LoadingSvg from "../../assets/svg/whiteLoader.svg";
+import {
+  UserDataProps,
+  CloseProps,
+  UserFriendsProps,
+  InitialUserData,
+} from "./Aside_Interfaces";
 import "./Aside.sass";
 
-interface UserDataProps {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  friends: string[];
-  profilePicture?: string;
-}
-
-interface UserFriendsProps {
-  _id: string;
-  name: string;
-  profilePicture: string;
-  email: string;
-}
-
-interface CloseProps {
-  closeBtn: () => void;
-  closeOnLink: () => void;
-}
-const initialUserData: UserDataProps = {
-  _id: "",
-  name: "",
-  email: "",
-  password: "",
-  friends: [],
-  profilePicture: DefaultImage,
-};
-
 const Aside = ({ closeBtn, closeOnLink }: CloseProps) => {
-  const [userData, setUserData] = useState<UserDataProps>(initialUserData);
+  const [userData, setUserData] = useState<UserDataProps>(InitialUserData);
   const [userFriends, setUserFriends] = useState<UserFriendsProps[]>([]);
   const [userId, setUserId] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadUserData();
@@ -54,7 +30,7 @@ const Aside = ({ closeBtn, closeOnLink }: CloseProps) => {
 
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
-    navigate('/login')
+    navigate("/login");
   };
 
   const loadUserData = async () => {

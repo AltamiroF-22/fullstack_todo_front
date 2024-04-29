@@ -6,14 +6,8 @@ import Navbar from "../../components/navbar/Navbar";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
+import { TasksProps } from "./FriendsTasks_Interface";
 
-interface TasksProps {
-  _id: string;
-  title: string;
-  description: string;
-  status: string;
-  visibility: string;
-}
 const FriendsTasks = () => {
   const [friendTasks, setFriendTasks] = useState<TasksProps[]>([]);
   const [friendName, setFriendName] = useState<string>("...");
@@ -22,7 +16,7 @@ const FriendsTasks = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    setFriendName('...')
+    setFriendName("...");
     loadFriend();
     loadFriendTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,11 +25,6 @@ const FriendsTasks = () => {
   const loadFriend = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
 
       const response = await api.get(`/others-users/${id}`, {
         headers: {
@@ -52,11 +41,6 @@ const FriendsTasks = () => {
   const loadFriendTasks = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
 
       const response = await api.get(`/all-task-from/${id}`, {
         headers: {
@@ -122,9 +106,7 @@ const FriendsTasks = () => {
             </>
           ) : (
             <div className="user-no-tasks-div">
-              <p className="user-no-tasks">
-                {friendName} has no tasks yet
-              </p>
+              <p className="user-no-tasks">{friendName} has no tasks yet</p>
             </div>
           )}
         </section>
