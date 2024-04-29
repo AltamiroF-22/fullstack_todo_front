@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-//icons
 import Search from "../../assets/svg/Search.svg";
 import Hamburguer from "../../assets/svg/hambuerger-menu.svg";
 import CloseIcon from "../../assets/svg/Vectorx-mark-black.svg";
-// style
 import "./Navbar.sass";
-//components
 import Aside from "../aside-menu/Aside";
 import SearchUser from "../search_user/SearchUser";
 
@@ -56,6 +52,7 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
+
       <aside className="aside-container">
         <div className="overerlay-aside">
           <div className={`aside ${asideMenu ? "aside-on" : "aside-off"}`}>

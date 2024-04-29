@@ -1,28 +1,8 @@
 import { useState, useRef } from "react";
 import "./Editing_add-tasks.sass";
+import { EditingAddTasksProps } from "./Editing_add-tasks_Interface";
 
-interface EditingAddTasksProps {
-  method: string;
-  popUpTitle: string;
-  closePopUp: () => void;
-  onSubmit: (formData: {
-    title: string;
-    description: string;
-    visibility: string;
-    status: string;
-  }) => void;
-  defaultTitle?: string;
-  defaultDescription?: string;
-}
-
-const EditingAddTasks = ({
-  method,
-  popUpTitle,
-  defaultTitle,
-  defaultDescription,
-  closePopUp,
-  onSubmit,
-}: EditingAddTasksProps) => {
+const EditingAddTasks = (props: EditingAddTasksProps) => {
   const [visibility, setVisibility] = useState<string>("public");
   const [status, setStatus] = useState<string>("not_started");
   const [erroMsg, setErroMsg] = useState<string>("");
@@ -31,15 +11,17 @@ const EditingAddTasks = ({
 
   const handleVisibilityChange = (
     event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     setVisibility(event.target.value);
   };
 
-  const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleStatusChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setStatus(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     const title = titleRef.current?.value.trim() ?? "";
@@ -49,7 +31,7 @@ const EditingAddTasks = ({
       setErroMsg("The fields can't be empyt!");
       return;
     }
-    
+
     setErroMsg("");
 
     const formData = {
@@ -59,7 +41,7 @@ const EditingAddTasks = ({
       status: status,
     };
 
-    onSubmit(formData);
+    props.onSubmit(formData);
   };
 
   return (
@@ -67,23 +49,23 @@ const EditingAddTasks = ({
       <section className="pop-up">
         <nav>
           <ul>
-            <li>{popUpTitle}</li>
-            <li className="close-pop-up" onClick={closePopUp}>
+            <li>{props.popUpTitle}</li>
+            <li className="close-pop-up" onClick={props.closePopUp}>
               x
             </li>
           </ul>
         </nav>
-        <form method={method} onSubmit={handleSubmit}>
+        <form method={props.method} onSubmit={handleSubmit}>
           <div className="form-up">
             <small className="erros">{erroMsg}</small>
             <input
               ref={titleRef}
-              defaultValue={defaultTitle}
+              defaultValue={props.defaultTitle}
               type="text"
               placeholder="title:"
             />
             <input
-              defaultValue={defaultDescription}
+              defaultValue={props.defaultDescription}
               ref={descriptionRef}
               type="text"
               placeholder="description:"
@@ -146,13 +128,13 @@ const EditingAddTasks = ({
               <label htmlFor="completed">Completed</label>
             </div>
 
-            {defaultDescription && defaultTitle && (
+            {props.defaultDescription && props.defaultTitle && (
               <>
                 <p>
-                  title: <span> {defaultTitle}</span>
+                  title: <span> {props.defaultTitle}</span>
                 </p>
                 <p>
-                  description: <span>{defaultDescription}</span>
+                  description: <span>{props.defaultDescription}</span>
                 </p>
               </>
             )}

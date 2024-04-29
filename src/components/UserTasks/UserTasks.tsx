@@ -6,14 +6,7 @@ import LoadingSvg from "../../assets/svg/loader.svg";
 import { DefaultGIFs } from "../../assets/default_GIFs/data/defaultsGifs";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
-
-interface TasksProps {
-  _id: string;
-  title: string;
-  description: string;
-  status: string;
-  visibility?: string;
-}
+import { TasksProps } from "./UserTasks_Interfaces";
 
 const UserTasks = () => {
   const [userId, setUserId] = useState<string>("");
@@ -39,12 +32,6 @@ const UserTasks = () => {
   const loadUserData = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
-
       const response = await api.get("/user", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,11 +47,6 @@ const UserTasks = () => {
   //load all User's tasks
   const loadUserTasks = async () => {
     const token = localStorage.getItem("jwtToken");
-
-    if (!token) {
-      console.error("Token not found in localStorage");
-      return;
-    }
 
     try {
       const response = await api.get(`/all-task-from/${userId}`, {
@@ -97,11 +79,6 @@ const UserTasks = () => {
     try {
       const token = localStorage.getItem("jwtToken");
 
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
-
       const response = await api.post("/new-task", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -130,10 +107,6 @@ const UserTasks = () => {
     try {
       const token = localStorage.getItem("jwtToken");
 
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
       await api.delete(`/single-task/${taskId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -169,10 +142,6 @@ const UserTasks = () => {
     try {
       const token = localStorage.getItem("jwtToken");
 
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
       const response = await api.patch(`/single-task/${taskId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,52 +1,35 @@
 import "./Task.sass";
+import { TaskProps } from "./Task_Interface";
 
-interface TaskProps {
-  hasButtons: boolean;
-  hasVisibility: boolean;
-  complete: boolean;
-  title: string;
-  description: string;
-  status: string;
-  visibility?: string;
-  editBtn?: () => void;
-  deleteBtn?: () => void;
-}
-
-const Task = ({
-  hasButtons,
-  hasVisibility,
-  complete,
-  title,
-  description,
-  status,
-  visibility,
-  editBtn,
-  deleteBtn,
-}: TaskProps) => {
+const Task = (props: TaskProps) => {
   return (
     <article className="task">
       <div className="p-father">
-        <p className={`${complete ? "complete" : ""}`}>{title}</p>
+        <p className={`${props.complete ? "complete" : ""}`}>{props.title}</p>
       </div>
       <div className="p-father">
-        <p className={`${complete ? "complete" : ""}`}>{description}</p>
+        <p className={`${props.complete ? "complete" : ""}`}>
+          {props.description}
+        </p>
       </div>
       <div className="p-father">
-        <p className={`${complete ? "complete" : ""}`}> {status}</p>
+        <p className={`${props.complete ? "complete" : ""}`}> {props.status}</p>
       </div>
-      
-      {hasVisibility && (
+
+      {props.hasVisibility && (
         <div className="p-father">
-          <p className={`${complete ? "complete" : ""}`}>{visibility}</p>
+          <p className={`${props.complete ? "complete" : ""}`}>
+            {props.visibility}
+          </p>
         </div>
       )}
 
-      {hasButtons && (
+      {props.hasButtons && (
         <div className="buttons-actions">
-          <button className="task-btn delet" onClick={deleteBtn}>
+          <button className="task-btn delet" onClick={props.deleteBtn}>
             delete
           </button>
-          <button className="task-btn edit" onClick={editBtn}>
+          <button className="task-btn edit" onClick={props.editBtn}>
             edit
           </button>
         </div>

@@ -1,39 +1,29 @@
 import PhotoName from "../photo-name/PhotoName";
 import "./SingleUserSearched.sass";
+import { SingleUserProps } from "./SingleUserSearched_interfaces.";
 
-interface SingleUserProps {
-  follow?: boolean;
-  name?: string;
-  email?: string;
-  image?: string;
-  addFriend?: () => void;
-  removeFriend?: () => void;
-}
-
-const SingleUserSearched = ({
-  follow,
-  name,
-  email,
-  image,
-  addFriend,
-  removeFriend,
-}: SingleUserProps) => {
+const SingleUserSearched = (props: SingleUserProps) => {
   return (
     <article className="photo">
-      {name && email && image && (
+      {props.name && props.email && props.image && (
         <div>
-          <PhotoName color="black" name={name} email={email} image={image} />
+          <PhotoName
+            color="black"
+            name={props.name}
+            email={props.email}
+            image={props.image}
+          />
         </div>
       )}
 
-      {addFriend &&
-        removeFriend &&
-        (!follow ? (
-          <button className={`follow`} onClick={addFriend}>
+      {props.addFriend &&
+        props.removeFriend &&
+        (!props.follow ? (
+          <button className={`follow`} onClick={props.addFriend}>
             Follow
           </button>
         ) : (
-          <button className={`remove`} onClick={removeFriend}>
+          <button className={`remove`} onClick={props.removeFriend}>
             Unfollow
           </button>
         ))}

@@ -5,18 +5,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import LoadingSvg from "../../assets/svg/loader.svg";
 import { Link } from "react-router-dom";
-
-interface UsersSearchedProps {
-  _id: string;
-  name: string;
-  email: string;
-  isFollowing: boolean;
-  userPicture?: string;
-}
-
-interface SearchUserProps {
-  closeSearch: () => void;
-}
+import { SearchUserProps, UsersSearchedProps } from "./SearchUser_Interface";
 
 const SearchUser = ({ closeSearch }: SearchUserProps) => {
   const [usersSearched, setUsersSearched] = useState<UsersSearchedProps[]>([]);
@@ -30,11 +19,6 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
   const getAllUsers = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
       const response = await api.get(`/user-search/`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,12 +46,6 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
   const handleFollow = async (_id: string) => {
     try {
       const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
-
       await api.put(`/user-search/${_id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -82,12 +60,6 @@ const SearchUser = ({ closeSearch }: SearchUserProps) => {
   const handleUnfollow = async (_id: string) => {
     try {
       const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.error("Token not found in localStorage");
-        return;
-      }
-
       await api.delete(`/remove-friend/${_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
