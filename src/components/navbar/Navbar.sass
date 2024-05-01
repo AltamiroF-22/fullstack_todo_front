@@ -21,6 +21,9 @@
         font-weight: normal
         letter-spacing: 2px
         font-family: variables.$barcode-font
+        @include mixins.responsive-max-width-600px
+            font-size: 1.5rem
+
         
     .icons
         display: flex
@@ -35,6 +38,10 @@
                 cursor: pointer
                 width: 1.3rem
                 height: 1.3rem
+                @include mixins.responsive-max-width-600px
+                    width: 1rem
+                    height: 1rem
+
                 &:hover
                     transform: scale(.9)
 .aside-container
