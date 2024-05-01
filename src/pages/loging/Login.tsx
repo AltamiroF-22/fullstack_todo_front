@@ -5,6 +5,7 @@ import { createError } from "../../utils/createError";
 import { clearErrors } from "../../utils/clearErros";
 import { ErrorResponse, LoginResponse } from "./login_interfaces";
 import "../register/Register.sass";
+import Warning from "../../components/warning/Warning";
 
 const Login: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -97,19 +98,7 @@ const Login: React.FC = () => {
         </p>
       </section>
 
-      <div className="warning">
-        <p>
-          It takes a few minutes for the API to start responding to requests
-          since it's hosted on a free plan :|
-          <br />
-          If it takes longer than a few minutes, I might forget to re-host the
-          API, given that the free plan only lasts for three months! <br />
-          please tell me if is taking more than few minutes
-          <a target="blank" href="https://www.instagram.com/junior.rx22/">
-            instagram
-          </a>
-        </p>
-      </div>
+      <Warning />
     </main>
   );
 };
