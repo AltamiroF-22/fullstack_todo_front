@@ -5,7 +5,8 @@ import { createError } from "../../utils/createError";
 import { clearErrors } from "../../utils/clearErros";
 import { ErrorResponse, LoginResponse } from "./login_interfaces";
 import "../register/Register.sass";
-import Warning from "../../components/warning/Warning";
+// import Warning from "../../components/warning/Warning";
+import WarningBtn from "../../components/warning-btn/WarningBtn.tsx";
 
 const Login: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -63,6 +64,10 @@ const Login: React.FC = () => {
     }
   };
 
+  const hanldeShowWarning = () => {
+    alert(1)
+  }
+
   return (
     <main className="container">
       <h1 className="title">TODOLIST</h1>
@@ -97,8 +102,9 @@ const Login: React.FC = () => {
           </Link>
         </p>
       </section>
+      <WarningBtn onClick={()=> hanldeShowWarning()} />
 
-      <Warning />
+      {/* <Warning /> */}
     </main>
   );
 };
