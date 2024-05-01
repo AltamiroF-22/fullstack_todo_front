@@ -1,17 +1,42 @@
 @use '../../sass/_variables'
+@use '../../sass/_mixins'
     
-.warning
-        width: 100%
-        position: absolute
-        left: 50%
-        transform: translateX(-50%)
-        bottom: 0
-        background: variables.$dark-gray
-        color: variables.$white-color
-        padding: .4rem
-        p
-            font-size: 13px
-            border-bottom: none
-
-            a
-                color: #1679e2
+.blur-background
+    width: 100vw
+    min-height: 100vh
+    display: grid
+    place-content: center
+    position: absolute
+    @include mixins.backgroundBlur
+    .warning
+            width: 90%
+            margin: 0 auto
+            max-width: 400px
+            background: variables.$white-color
+            color: variables.$dark-gray
+            border-radius: 10px
+            padding: 1rem
+            p
+                font-size: 14px
+                text-align: start
+                border-bottom: none
+                padding: 10px 0
+                a
+                    color: #1679e2
+    .close-div
+        display: flex
+        align-items: center
+        height: 1.5rem
+        justify-content: end
+        .close-warning-btn
+            background: transparent 
+            border: none
+            font-size: 2rem
+            cursor: pointer
+            width: 2rem
+            height: 2rem
+            color: variables.$red-pink
+            transition: .2s
+            &:hover
+                filter: drop-shadow(0 0 20px red)
+            

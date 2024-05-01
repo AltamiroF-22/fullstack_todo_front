@@ -5,7 +5,7 @@ import { createError } from "../../utils/createError";
 import { clearErrors } from "../../utils/clearErros";
 import { ErrorResponse, LoginResponse } from "./login_interfaces";
 import "../register/Register.sass";
-// import Warning from "../../components/warning/Warning";
+import Warning from "../../components/warning/Warning";
 import WarningBtn from "../../components/warning-btn/WarningBtn.tsx";
 
 const Login: React.FC = () => {
@@ -13,6 +13,7 @@ const Login: React.FC = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [hasError, setHasError] = useState<boolean>(true);
+  const [showWarning, setShowWarning] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,9 +65,9 @@ const Login: React.FC = () => {
     }
   };
 
-  const hanldeShowWarning = () => {
-    alert(1)
-  }
+  const hanldeShowAndCloseWarning = () => {
+    showWarning ? setShowWarning(false) : setShowWarning(true);
+  };
 
   return (
     <main className="container">
@@ -102,9 +103,10 @@ const Login: React.FC = () => {
           </Link>
         </p>
       </section>
-      <WarningBtn onClick={()=> hanldeShowWarning()} />
 
-      {/* <Warning /> */}
+      <WarningBtn onClick={() => hanldeShowAndCloseWarning()} />
+
+      {showWarning && <Warning onClick={() => hanldeShowAndCloseWarning()} />}
     </main>
   );
 };

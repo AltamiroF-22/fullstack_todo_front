@@ -4,6 +4,8 @@ import { api } from "../../services/api";
 import { createError } from "../../utils/createError";
 import { clearErrors } from "../../utils/clearErros";
 import Warning from "../../components/warning/Warning";
+import WarningBtn from "../../components/warning-btn/WarningBtn.tsx";
+
 import "./Register.sass";
 
 const Register: React.FC = () => {
@@ -12,6 +14,7 @@ const Register: React.FC = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [hasError, setHasError] = useState<boolean>(true);
+  const [showWarning, setShowWarning] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,6 +51,10 @@ const Register: React.FC = () => {
       createError(passwordRef, "Password must have at least 8 characters!");
       setHasError(true);
     }
+  };
+
+  const hanldeShowAndCloseWarning = () => {
+    showWarning ? setShowWarning(false) : setShowWarning(true);
   };
 
   const postNewUser = async (name: string, email: string, password: string) => {
@@ -113,8 +120,9 @@ const Register: React.FC = () => {
           </Link>
         </p>
       </section>
+      <WarningBtn onClick={() => hanldeShowAndCloseWarning()} />
 
-      <Warning />
+      {showWarning && <Warning onClick={() => hanldeShowAndCloseWarning()} />}
     </main>
   );
 };
